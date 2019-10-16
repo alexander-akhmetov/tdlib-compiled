@@ -8,7 +8,9 @@ RUN apt-get update && \
 	                      git \
                           zlib1g-dev
 
-RUN git clone https://github.com/tdlib/td.git /root/td/
+ARG tdlib_tag
+
+RUN git clone --branch=$tdlib_tag https://github.com/tdlib/td.git /root/td
 RUN mkdir /root/td/build
 
 WORKDIR /root/td/build/

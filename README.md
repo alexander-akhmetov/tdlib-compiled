@@ -1,11 +1,14 @@
 # tdlib binaries
 
-`tdlib` binaries for MacOS and Linux (libc/musl)
+[tdlib](https://github.com/tdlib/td) binaries for MacOS and Linux (libc/musl)
 
-## Checksums
+## How to build
 
-```
-SHA256(linux/libtdjson.so)= 9feb88a30f19a14d0277712e48b747b87bf8dc5ff3ffc5c97f461fda120afd4c
-SHA256(linux-musl/libtdjson.so)= 8d9bf225888fbd2003bb8d68d09234a5857f1e0440ad4d07c4169ab11f4fa4b8
-SHA256(macos/libtdjson.dylib)= 329a0463104c10c69f30f7270d0f2d8d1a15ad36b54ad216aea144774dc8ad85
-```
+To build linux versions run `build.sh` with a specified version: `./build.sh linux` or `./build.sh linux-musl`.
+When compilation process is done, compiled `libtdjson.so` will be in the `linux/compiled/` (or `linux-musl`) directory.
+
+The tdlib version is hardcoded, so if you want to build another version, you need to change `tdlib_tag` it in the script.
+
+### Alpine & 1.5.0
+
+There is no 1.5.0 build for Alpine at the moment: https://github.com/tdlib/td/pull/716
