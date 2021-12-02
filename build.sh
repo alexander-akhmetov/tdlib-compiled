@@ -1,6 +1,7 @@
 #!/bin/bash
 
-TDLIB_VERSION=v1.7.0
+TDLIB_VERSION=v1.7.9
+TDLIB_COMMIT=7d41d9eaa58a6e0927806283252dc9e74eda5512
 
 set -x
 
@@ -16,15 +17,17 @@ function check_arg() {
 function copy_compiled_lib() {
     mkdir -p compiled
     id=$(docker create build/tdlib-$1:latest)
-    docker cp $id:/out/libtdjson.so - > compiled/libtdjson.so
+    docker cp $id:/out/libtdjson.so - > compiled/libtdjson.tar
     docker rm $id
+    tar xvf compiled/libtdjson.tar -C compiled
+    rm compiled/libtdjson.tar
 }
 
 
 function build() {
     cd $1  #  go to linux or linux-musl
 
-    docker build --build-arg tdlib_tag=${TDLIB_VERSION} -t build/tdlib-$1 .
+    docker build --build-arg tdlib_tag=${TDLIB_VERSION} --build-arg tdlib_commit=${TDLIB_COMMIT} -t build/tdlib-$1 .
     copy_compiled_lib $1
 
     cd ..

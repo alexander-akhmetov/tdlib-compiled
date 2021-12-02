@@ -1,18 +1,22 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04 AS linux-base
+
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-	apt-get install --yes build-essential \
-                          libssl-dev \
-	                      cmake \
-	                      gperf \
-	                      git \
-                          zlib1g-dev
+    apt-get install --yes build-essential \
+    libssl-dev \
+    cmake \
+    gperf \
+    git \
+    zlib1g-dev
 
-ARG tdlib_tag
+ARG tdlib_commit
 
-RUN git clone --branch=$tdlib_tag https://github.com/tdlib/td.git /root/td
+RUN git clone https://github.com/tdlib/td.git /root/td
+WORKDIR /root/td/
+RUN git checkout $tdlib_commit
+
 RUN mkdir /root/td/build
-
 WORKDIR /root/td/build/
 
 RUN cmake -DCMAKE_BUILD_TYPE=Release ..

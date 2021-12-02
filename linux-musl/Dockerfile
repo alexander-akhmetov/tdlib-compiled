@@ -1,20 +1,23 @@
-FROM alpine:3.9
+FROM alpine:3.15
 
 RUN apk add --no-cache alpine-sdk \
-	openssl-dev \
+    openssl-dev \
     linux-headers \
-	cmake \
-	gperf \
-	git \
+    cmake \
+    gperf \
+    git \
     zlib-dev \
     php \
     php-ctype
 
 ARG tdlib_tag
+ARG tdlib_commit
 
-RUN git clone --branch=$tdlib_tag https://github.com/tdlib/td.git /root/td
+RUN git clone https://github.com/tdlib/td.git /root/td
+WORKDIR /root/td/
+RUN git checkout $tdlib_commit
+
 RUN mkdir /root/td/build
-
 WORKDIR /root/td/build/
 
 ENV CXXFLAGS ""
