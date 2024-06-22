@@ -1,7 +1,7 @@
 #!/bin/bash
 
-TDLIB_VERSION=v1.8.5
-TDLIB_COMMIT=d9cfcf88fe4ad06dae1716ce8f66bbeb7f9491d9
+TDLIB_VERSION=v1.8.31
+TDLIB_COMMIT=8f19c751dc296cedb9a921badb7a02a8c0cb1aeb
 
 set -x
 
